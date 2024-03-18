@@ -1,20 +1,24 @@
 name: CI/CD
 on:
+  # only on PRs into and merge to default branch
+  pull_request:
+    branches:
+      - master
   push:
+    branches:
+      - master
 
 jobs:
-  # runs on branch pushes only
   ci_unit:
     name: Run Unit Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: Run Unit Tests
@@ -26,15 +30,14 @@ jobs:
 
   ci_integration:
     name: Run Integration Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -137,15 +140,14 @@ jobs:
 
   ci_integration_envvar:
     name: Run Integration Env Var Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: env-vars-passed-through
@@ -159,15 +161,14 @@ jobs:
 
   ci_integration_large_output:
     name: Run Integration Large Output Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: Test 100MiB of output can be processed
@@ -191,15 +192,14 @@ jobs:
 
   ci_integration_retry_on_exit_code:
     name: Run Integration retry_on_exit_code Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: retry_on_exit_code (with expected error code)
@@ -240,15 +240,14 @@ jobs:
 
   ci_integration_continue_on_error:
     name: Run Integration continue_on_error Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: happy-path (continue_on_error)
@@ -288,15 +287,14 @@ jobs:
 
   ci_integration_retry_wait_seconds:
     name: Run Integration Tests (retry_wait_seconds)
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -325,15 +323,14 @@ jobs:
 
   ci_integration_on_retry_cmd:
     name: Run Integration Tests (on_retry_command)
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -369,15 +366,14 @@ jobs:
   # timeout tests take longer to run so run in parallel
   ci_integration_timeout_seconds:
     name: Run Integration Timeout Tests (seconds)
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -400,15 +396,14 @@ jobs:
 
   ci_integration_timeout_retry_on_timeout:
     name: Run Integration Timeout Tests (retry_on timeout)
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -432,15 +427,14 @@ jobs:
 
   ci_integration_timeout_retry_on_error:
     name: Run Integration Timeout Tests (retry_on error)
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -468,15 +462,14 @@ jobs:
 
   ci_integration_timeout_minutes:
     name: Run Integration Timeout Tests (minutes)
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
 
@@ -499,15 +492,14 @@ jobs:
 
   ci_windows:
     name: Run Windows Tests
-    if: startsWith(github.ref, 'refs/heads')
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: Powershell test
@@ -571,7 +563,7 @@ jobs:
     steps:
       - run: echo "If this is hit, all tests successfully passed"
 
-  # runs on push to master only
+  # runs on merge to default only
   cd:
     name: Publish Action
     needs: [ci_all_tests_passed]
@@ -579,16 +571,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: Release
         id: semantic
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Tag
